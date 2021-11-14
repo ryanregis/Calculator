@@ -9,11 +9,13 @@
 
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-color: darkslategray;
+  background-color: #363636;
+  margin: 0;
+  padding: 0;
 }
 
 ::-webkit-scrollbar {
-  height: 8px;
+  height: 5px;
 }
 
 /* Track */
@@ -29,79 +31,48 @@ body {
   border-radius: 5px;
 }
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 7%;
-  height: 5vh;
-}
-
-.switch .slider {
-  border-radius: 35%;
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: powderblue;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.switch .slider::before {
-  border-radius: 45%;
-  position: absolute;
-  content: "";
-  text-align: center;
-  height: 80%;
-  width: 45%;
-  left: 5%;
-  bottom: 10%;
-  background-color: olivedrab;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-#toggle {
-  display: none;
-}
-
-#toggle:checked ~ .switch .slider {
-  background-color: olivedrab;
-}
-
-#toggle:checked ~ .switch .slider::before {
-  -webkit-transform: translateX(100%);
-          transform: translateX(100%);
-  background-color: powderblue;
-}
-
 .h-title {
-  font-size: 2.5em;
+  font-size: clamp(2em, 3vw, 3em);
   color: white;
 }
 
 .sci-calc-container {
   color: lightgray;
   background-color: #363636;
-  border: 5px solid deepskyblue;
-  border-radius: 10%;
-  width: clamp(500px, 40vw, 1000px);
-  min-height: 60vh;
+  border: 5px solid olivedrab;
+  border-radius: 5%;
+  width: clamp(350px, 50vw, 1000px);
+  min-height: 120vh;
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 15% 25% 60%;
-      grid-template-rows: 15% 25% 60%;
+  -ms-grid-rows: 10% 20% auto;
+      grid-template-rows: 10% 20% auto;
   -ms-grid-columns: 100%;
       grid-template-columns: 100%;
+}
+
+@media (min-width: 768px) {
+  .sci-calc-container {
+    min-height: 70vh;
+    -ms-grid-rows: 15% 40% auto;
+        grid-template-rows: 15% 40% auto;
+    -ms-grid-columns: 100%;
+        grid-template-columns: 100%;
+  }
+}
+
+@media (device-width: 768px) and (device-height: 1024px) and (orientation: landscape) {
+  .sci-calc-container {
+    height: 768px;
+    width: 550px;
+  }
 }
 
 .sci-calc-container header {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50% 50%;
-      grid-template-columns: 50% 50%;
+  -ms-grid-columns: 45% 55%;
+      grid-template-columns: 45% 55%;
   -ms-grid-rows: 50% 50%;
       grid-template-rows: 50% 50%;
   place-items: center;
@@ -123,27 +94,33 @@ body {
   font-size: 1.2em;
 }
 
-.sci-calc-container header .solar-panel {
+.sci-calc-container header .mode-button {
   -ms-grid-row: 1;
   -ms-grid-row-span: 2;
   grid-row: 1 / 3;
-  width: 200px;
+  width: clamp(100px, 70%, 250px);
   min-height: 80%;
-  background-color: sienna;
-  -webkit-box-shadow: inset 0 0 5px 5px #363636;
-          box-shadow: inset 0 0 5px 5px #363636;
+  background-color: dimgray;
+  border-color: olivedrab;
+  outline: 1px solid olivedrab;
+  -webkit-box-shadow: inset 0 0 3px 2px #363636;
+          box-shadow: inset 0 0 3px 2px #363636;
   border-radius: 5%;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (25%)[4];
-      grid-template-columns: repeat(4, 25%);
-  -ms-grid-rows: 93%;
-      grid-template-rows: 93%;
-  place-content: center;
 }
 
-.sci-calc-container header .solar-panel .panel {
-  border: 1px solid #363636;
+.sci-calc-container header .mode-button .mode-name {
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.35em;
+  font-weight: bold;
 }
 
 .sci-calc-container .screen {
@@ -151,9 +128,9 @@ body {
   background-color: #afcfaf;
   -webkit-box-shadow: inset 0 0 5px 2px #165016;
           box-shadow: inset 0 0 5px 2px #165016;
+  text-align: right;
+  font-size: clamp(1rem, calc(2rem + 1vw), 5rem);
   padding: 10px 5px;
-  color: darkblue;
-  overflow-x: clip;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 100%;
@@ -164,35 +141,64 @@ body {
 }
 
 .sci-calc-container .screen #topScreen {
-  font-size: clamp(1rem, calc(1rem + 1vw), 3rem);
-  border: 2px solid red;
+  background-color: rgba(0, 0, 139, 0.025);
+  color: rgba(0, 0, 139, 0.8);
+  line-height: 100%;
+  font-size: clamp(1.25rem, 3vw, 3rem);
   width: 100%;
+  overflow: scroll hidden;
 }
 
 .sci-calc-container .screen #bottomScreen {
-  font-size: clamp(1rem, calc(2rem + 3vw), 3rem);
-  border: 2px solid blue;
+  background-color: rgba(0, 0, 139, 0.025);
+  color: darkblue;
+  line-height: 100%;
+  font-size: clamp(2.5rem, 4vw, 4rem);
   width: 100%;
+  overflow: scroll hidden;
 }
 
 .sci-calc-container .buttons {
-  font-size: clamp(0.25rem, calc(0.5rem + 0.5vw), 3rem);
-  padding: 20px;
+  font-size: clamp(1.25rem, 2vmin, 1.65rem);
+  padding: 10px 15px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (33.33%)[3];
-      grid-template-columns: repeat(3, 33.33%);
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  -ms-grid-rows: 35% 65%;
+      grid-template-rows: 35% 65%;
+}
+
+@media (min-width: 768px) {
+  .sci-calc-container .buttons {
+    -ms-grid-columns: (calc(100%/3))[3];
+        grid-template-columns: repeat(3, calc(100%/3));
+    -ms-grid-rows: 100%;
+        grid-template-rows: 100%;
+  }
 }
 
 .sci-calc-container .buttons .buttons-set-1 {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (32%)[3];
-      grid-template-columns: repeat(3, 32%);
+  -ms-grid-columns: (33.33%)[3];
+      grid-template-columns: repeat(3, 33.33%);
+  padding: 5px 0;
+}
+
+@media (max-width: 768px) {
+  .sci-calc-container .buttons .buttons-set-1 {
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    grid-row: 2 / 3;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-column: 1 / 2;
+  }
 }
 
 .sci-calc-container .buttons .buttons-set-1 .btn-input {
-  margin: 3px;
+  margin: 5px;
   background-color: dimgray;
   color: white;
 }
@@ -202,12 +208,38 @@ body {
   display: grid;
   -ms-grid-columns: (25%)[4];
       grid-template-columns: repeat(4, 25%);
+  padding: 5px 0;
+}
+
+@media (max-width: 768px) {
+  .sci-calc-container .buttons .buttons-set-2 {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+    grid-row: 1 / 2;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+    grid-column: 1 / span 2;
+    padding: 0;
+  }
 }
 
 .sci-calc-container .buttons .buttons-set-2 .btn-sci {
-  margin: 3px;
-  background-color: dimgray;
+  margin: 2px;
+  background-color: black;
   color: white;
+}
+
+.sci-calc-container .buttons .buttons-set-2 #shift {
+  grid-column: span 2;
+}
+
+.sci-calc-container .buttons .buttons-set-2 #angleType {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1 / 2;
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 2;
+  grid-column: 3/ span 2;
 }
 
 .sci-calc-container .buttons .buttons-set-3 {
@@ -215,6 +247,18 @@ body {
   display: grid;
   -ms-grid-columns: (50%)[2];
       grid-template-columns: repeat(2, 50%);
+  padding: 5px 0;
+}
+
+@media (max-width: 768px) {
+  .sci-calc-container .buttons .buttons-set-3 {
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    grid-row: 2 / 3;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+    grid-column: 2 / 3;
+  }
 }
 
 .sci-calc-container .buttons .buttons-set-3 .btn-operator, .sci-calc-container .buttons .buttons-set-3 .btn-operator-green {
@@ -236,14 +280,30 @@ body {
   background-color: #363636;
   border: 5px solid deepskyblue;
   border-radius: 10%;
-  width: clamp(300px, 25vw, 50vw);
-  min-height: 60vh;
+  width: clamp(350px, 30vw, 50vw);
+  min-height: 70vh;
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 15% 30% auto;
-      grid-template-rows: 15% 30% auto;
+  -ms-grid-rows: 15% 25% auto;
+      grid-template-rows: 15% 25% auto;
   -ms-grid-columns: 100%;
       grid-template-columns: 100%;
+}
+
+@media (device-width: 768px) and (device-height: 1024px) and (orientation: landscape) {
+  .calc-container {
+    height: 768px;
+    width: 400px;
+  }
+}
+
+@media (min-width: 768px) {
+  .calc-container {
+    -ms-grid-rows: 15% 30% auto;
+        grid-template-rows: 15% 30% auto;
+    -ms-grid-columns: 100%;
+        grid-template-columns: 100%;
+  }
 }
 
 .calc-container header {
@@ -262,7 +322,7 @@ body {
   -ms-grid-row-span: 1;
   grid-row: 1/2;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.75em;
 }
 
 .calc-container header .header-sub {
@@ -272,27 +332,31 @@ body {
   font-size: 1em;
 }
 
-.calc-container header .solar-panel {
+.calc-container header .mode-button {
   -ms-grid-row: 1;
   -ms-grid-row-span: 2;
   grid-row: 1 / 3;
-  width: 80%;
+  width: clamp(100px, 70%, 250px);
   min-height: 80%;
-  background-color: sienna;
-  -webkit-box-shadow: inset 0 0 5px 5px #363636;
-          box-shadow: inset 0 0 5px 5px #363636;
+  background-color: dimgray;
+  border-color: deepskyblue;
+  outline: none;
   border-radius: 5%;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (25%)[4];
-      grid-template-columns: repeat(4, 25%);
-  -ms-grid-rows: 93%;
-      grid-template-rows: 93%;
-  place-content: center;
 }
 
-.calc-container header .solar-panel .panel {
-  border: 1px solid #363636;
+.calc-container header .mode-button .mode-name {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: white;
 }
 
 .calc-container .screen {
@@ -303,19 +367,21 @@ body {
   text-align: right;
   font-size: clamp(1rem, calc(2rem + 1vw), 5rem);
   padding: 10px 5px;
+  word-break: keep-all;
+  word-wrap: normal;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 100%;
       grid-template-columns: 100%;
   -ms-grid-rows: 40% 60%;
       grid-template-rows: 40% 60%;
-  gap: 5px;
+  gap: 2px;
 }
 
 .calc-container .screen #topScreen {
   background-color: rgba(0, 0, 139, 0.025);
   color: rgba(0, 0, 139, 0.8);
-  font-size: clamp(1rem, calc(1rem + 1vw), 2rem);
+  font-size: clamp(1.9rem, 2.2vw, 3rem);
   width: 100%;
   overflow: scroll hidden;
 }
@@ -323,13 +389,13 @@ body {
 .calc-container .screen #bottomScreen {
   background-color: rgba(0, 0, 139, 0.025);
   color: darkblue;
-  font-size: clamp(1rem, calc(1rem + 3vw), 3rem);
+  font-size: clamp(2.75rem, 3.95vw, 4rem);
   width: 100%;
   overflow: scroll hidden;
 }
 
 .calc-container .buttons {
-  font-size: clamp(0.25rem, calc(0.75rem + 0.75vw), 3rem);
+  font-size: clamp(1.25rem, 2vmin, 1.65rem);
   padding: 20px;
   display: -ms-grid;
   display: grid;

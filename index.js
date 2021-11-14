@@ -1,8 +1,7 @@
 let body = document.querySelector("body");
-let calculator = document.querySelector("#calculator")
+let calculator = document.querySelector("#calculator");
 let headerTitle = document.querySelector("#headerTitle");
 let headerSub = document.querySelector("#headerSub");
-
 
 let modeToggle = document.querySelector("#toggle");
 let modeTitle = document.querySelector("#modeTitle");
@@ -23,33 +22,34 @@ let ln = document.querySelector("#ln");
 
 let angleType = document.querySelector("#angleType");
 
-let topS, bottomS;
-
 headerSub.textContent = "";
 headerSub.textContent = "rg-23";
 
 
+modeToggle.addEventListener('click', () => {
 
-modeToggle.addEventListener('click', function () {
+    if (modeTitle.innerHTML === "Simple") {
+        console.log("Current Mode: Simple");
+        alert("Scientific Mode: ***UNDER CONSTRUCTION***");
+        /**
+         * * Sci-Mode Toggle
+         * ! Under Construction 
+         * */
+        // modeTitle.innerHTML = "";
+        // modeTitle.innerHTML = "Scientific";
+        // modeTitle.style.fontSize = "1.35em";
 
-    if (this.checked) {
-        console.log("Checkbox is checked..");
-        modeTitle.innerHTML = "";
-        modeTitle.innerHTML = "Low-spec Scientific e-Calculator <br> ***UNDER CONSTRUCTION***";
-        modeTitle.style.textAlign = "center";
-        modeTitle.style.fontSize = "2.5em";
+        // calculator.classList.add("sci-calc-container");
+        // calculator.classList.remove("calc-container");
 
-        calculator.classList.add("sci-calc-container");
-        calculator.classList.remove("calc-container");
-        
-        headerSub.textContent = "";
-        headerSub.textContent = "rg-23VR PLUS";
+        // headerSub.textContent = "";
+        // headerSub.textContent = "rg-23VR PLUS";
     } else {
-        console.log("Checkbox is not checked..");
+        console.log("Current Mode: Scientific");
+
         modeTitle.textContent = "";
-        modeTitle.textContent = "Simple Calculator";
-        modeTitle.style.textAlign = "center";
-        modeTitle.style.fontSize = "2.5em";
+        modeTitle.textContent = "Simple";
+        modeTitle.style.fontSize = "1.5em";
 
         calculator.classList.add("calc-container");
         calculator.classList.remove("sci-calc-container");
@@ -63,49 +63,73 @@ let equals = false;
 let shiftPressed = false;
 
 buttons.addEventListener('click', (e) => {
-    let notRestricted = (e.target.className !== "buttons") && (e.target.className !== "buttons-set-1")
-        && (e.target.className !== "buttons-set-2") && (e.target.className !== "buttons-set-3");
+    let notRestricted = (e.target.className !== "buttons")
+        && (e.target.className !== "buttons-set-1")
+        && (e.target.className !== "buttons-set-2")
+        && (e.target.className !== "buttons-set-3");
 
     if (notRestricted) {
-        if (/Error/.test(topScreen.textContent) || equals) {
-            topScreen.textContent = bottomScreen.textContent ? topScreen.textContent + bottomScreen.textContent : "";
-            bottomScreen.textContent = "";
-            equals = false;
-        };
-        console.log(e.target.innerHTML);
-        switch (e.target.innerHTML) {
-            case 'DEL':
-                if (bottomScreen.textContent) bottomScreen.textContent = bottomScreen.textContent.slice(0, -1);
-                break;
+        if (modeTitle.innerHTML === "Simple") {
+            // * Simple Calculator Buttons
 
-            case 'AC':
-                topScreen.textContent = "";
+            if (/Syntax Error/.test(bottomScreen.textContent) || equals) {
+                topScreen.textContent = bottomScreen.textContent !== "Syntax Error" ? topScreen.textContent + bottomScreen.textContent : "";
                 bottomScreen.textContent = "";
-                break;
+                equals = false;
+            };
+            // ? console.log(e.target.innerHTML);
+            switch (e.target.innerHTML) {
+                case 'DEL':
+                    if (bottomScreen.textContent) bottomScreen.textContent = bottomScreen.textContent.slice(0, -1);
+                    break;
 
-            case '=':
-                equals = true;
-                try {
-                    topScreen.textContent = bottomScreen.textContent ? bottomScreen.textContent + "=" : "";
-                    bottomScreen.textContent = math.evaluate(bottomScreen.textContent).toLocaleString("en-US", {
-                        maximumFractionDigits: 10});
-                } catch {
+                case 'AC':
                     topScreen.textContent = "";
-                    bottomScreen.textContent = "Syntax Error";
-                }
-                break;
+                    bottomScreen.textContent = "";
+                    break;
 
-            case 'SHIFT':
-                shiftPressed = shiftPressed ? false : true;
-                break;
+                case '=':
+                    equals = true;
+                    try {
+                        topScreen.textContent = bottomScreen.textContent ? bottomScreen.textContent + "=" : "";
+                        bottomScreen.textContent = bottomScreen.textContent ? math.evaluate(bottomScreen.textContent).toLocaleString("en-US", {
+                            maximumFractionDigits: 10
+                        }) : "";
+                    } catch {
+                        topScreen.textContent = "";
+                        bottomScreen.textContent = "Syntax Error";
+                    }
+                    break;
 
-            case 'x<sup>2</sup>':
-                bottomScreen.textContent += "^2";
-                break;
+                default:
+                    bottomScreen.textContent += e.target.textContent;
+                    break;
+            }
+        }
+        else {
+            alert("Scientific Mode: ***UNDER CONSTRUCTION***");
+            /**
+            * * Scientific Buttons
+            * ! Under Construction 
+            * TODO Implement Trigonometric Functions
+            * */
+            // case 'SHIFT':
+            //     shiftPressed = shiftPressed ? false : true;
+            //     break;
 
-            default:
-                bottomScreen.textContent += e.target.textContent;
-                break;
+            // case 'x<sup>&#9634</sup>':
+            //     bottomScreen.textContent += "^";
+            //     break;
+
+            // case 'sin':
+            //     bottomScreen.textContent += "sin(";
+            //     break;
+            // case 'cos':
+            //     bottomScreen.textContent += "cos(";
+            //     break;
+            // case 'tan':
+            //     bottomScreen.textContent += "tan(";
+            //     break;
         }
     }
 
